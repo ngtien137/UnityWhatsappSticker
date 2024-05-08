@@ -57,16 +57,10 @@ public class MainDemoController : MonoBehaviour
     public void GenerateStickerOrTray(string resourcesPath, string fileName, int trayOrSticker) // 1 is tray, 0 is sticker
     {
         
-        // Đường dẫn đến thư mục internal của ứng dụng
-        string internalPath = Application.persistentDataPath;
-
-        // Đọc nội dung của file từ thư mục Resources
-        byte[] fileBytes = null;
-
         Texture2D texture = Resources.Load<Texture2D>(resourcesPath);
         Texture2D decompressTexture = DeCompress(texture);
         if (trayOrSticker == 0)
-        {
+        {   
             wAStickerModule.SaveImageAsSticker(decompressTexture, fileName, 90);
         }
         else
