@@ -12,7 +12,7 @@ Got the wasticker-release.aar from package or clone project and add it to folder
 
 Check Custom Android Main Manifest in Build Settings/Player Settings/ Publishing Settings/Build and add this into application tag <application></application>
 
-![alt text]((https://github.com/ngtien137/UnityWhatsappSticker/blob/main/tutorial_images/tut1.png))
+![alt text](https://github.com/ngtien137/UnityWhatsappSticker/blob/main/tutorial_images/tut1.png)
 
 ```gradle
 <manifest
