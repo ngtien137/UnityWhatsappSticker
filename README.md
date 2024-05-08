@@ -36,7 +36,7 @@ Check Custom Android Main Manifest in Build Settings/Player Settings/ Publishing
 
 You can see variable {applicationId} above. It means the application PackageName in unity. You can find and set it in Other settings:
 
-![alt text]([http://url/to/img.png](https://github.com/ngtien137/UnityWhatsappSticker/blob/main/tutorial_images/tut2.png))
+![alt text](https://github.com/ngtien137/UnityWhatsappSticker/blob/main/tutorial_images/tut2.png)
 
 Example: In demo project, the applicationId (or packageName) is com.luza.whatsapp_sticker:
 
@@ -56,7 +56,7 @@ Create an empty game object and attach WAStickerModule.cs to it. Then you can us
 
 ### Working with sticker pack
 * Talk about a Sticker Pack. This is an sticker pack:
-![alt text]([http://url/to/img.png](https://github.com/ngtien137/UnityWhatsappSticker/blob/main/tutorial_images/sticker_pack.png))
+![alt text](https://github.com/ngtien137/UnityWhatsappSticker/blob/main/tutorial_images/sticker_pack.png)
   Identifier: May be know as id of sticker, a string but you need set int or long to it. If you add an sticker pack with the same identifier, whatsapp will ignore you adding sticker pack. So you need use another identifier (I don't support update sticker pack)
 
 * For creating custom sticker pack, you need at least two **PNG** images. One of them is tray icon and the others are Stickers
