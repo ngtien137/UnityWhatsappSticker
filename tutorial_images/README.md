@@ -6,11 +6,11 @@ Adding sticker to whatsapp from unity application
 ## Installation
 
 ### Import the library
-Got the wasticker-release.aar from package or clone project and add it to folder ../Plugins/Android/
+Sao chép thư viện wasticker-release.aar từ unity package hoặc clone project và thêm nó vào thư mục ../Plugins/Android/
 
-### Declare Sticker Content Provider
+### Khai báo Sticker Content Provider
 
-Check Custom Android Main Manifest in Build Settings/Player Settings/ Publishing Settings/Build and add this into application tag <application></application>
+Bật tính năng Custom Android Main Manifest trong Build Settings/Player Settings/ Publishing Settings/Build và add dòng này vào trong tag application <application></application> trong file manifest:
 
 ![alt text](https://github.com/ngtien137/UnityWhatsappSticker/blob/main/tutorial_images/tut1.png)
 
@@ -34,11 +34,11 @@ Check Custom Android Main Manifest in Build Settings/Player Settings/ Publishing
 </manifest>
 ```
 
-You can see variable {applicationId} above. It means the application PackageName in unity. You can find and set it in Other settings:
+Biến {applicationId} ở trên có nghĩa là PackageName trong unity. Có thể cài đặt và tìm thấy nó trong Other settings:
 
 ![alt text](https://github.com/ngtien137/UnityWhatsappSticker/blob/main/tutorial_images/tut2.png)
 
-Example: In demo project, the applicationId (or packageName) is com.luza.whatsapp_sticker:
+Ví dụ: Trong demo project, the applicationId (or packageName) chính là com.luza.whatsapp_sticker:
 
 ```gradle
       <provider
@@ -52,19 +52,18 @@ Example: In demo project, the applicationId (or packageName) is com.luza.whatsap
 ## Guide
 
 ### Adding Module To Scene
-Create an empty game object and attach WAStickerModule.cs to it. Then you can use that module for creating custom sticker
+Tạo một game object trống và thêm WAStickerModule.cs vào nó
 
 ### Working with sticker pack
-* Talk about a Sticker Pack. This is an sticker pack:
+* Nói về một gói sticker (Sticker Pack). Dưới đây là một sticker pack:
 ![alt text](https://github.com/ngtien137/UnityWhatsappSticker/blob/main/tutorial_images/sticker_pack.png)
-  Identifier: May be know as id of sticker, a string but you need set int or long to it. If you add an sticker pack with the same identifier, whatsapp will ignore you adding sticker pack. So you need use another identifier (I don't support update sticker pack)
+  Identifier: Hiểu đơn giản nó là id của sticker pack, mặc dù nó truyền vào là string nhưng hãy sử dụng int hoặc long cho nó. Nếu đã thêm một pack có id là "1" vào rồi, mà lại add một cái "1" vào nữa thì nó sẽ báo sticker này được add rồi và không cho add nữa, ở đây cần tính năng update, nhưng chịu, không hỗ trợ nhé. Hãy dùng một sticker identifier khác vào đấy.
 
-* For creating custom sticker pack, you need at least two **PNG** images. One of them is tray icon and the others are Stickers
-* Tray icon size is max 50kb, in **96x96 pixel**, in .png format
-* Sticker size is max 100kb, in **512x512 pixels**, in .png format (for my library converting png to webp)
+* Để tạo một sticker pack thì cần ít nhất 2 ảnh **PNG**. Một trong số đó là tray icon, số còn lại là stickers. Đoạn này thì cũng không biết nó có nhất thiết cần png không, nhưng cứ căn thế trước để sửa dụng hàm Texture2D.EncodePNG gì đó cho an toàn, mục đích là để sử dụng hàm đó
+* Tray icon có kích thước tối đa là 50kb, **96x96 pixel**, định dạng .png
+* Sticker tĩnh có kích thước tối đa 100kb, **512x512 pixels**, định dạng .png (Thật ra để add vào whatsapp thì nó cần webp, nhưng thư viện cần là png và nó sẽ tự chuyển ảnh thành webp)
 
-* If you have valid images, then you can use this function to save texture to temp storage for adding stickers in the futures
-* Use function **SaveImageAsSticker(Texture2D texture, string stickerName, int quality)** and **SaveImageAsTray(Texture2D texture, string stickerName, int quality)** to create 
+* Khi đã có đủ hình ảnh, sử dụng hàm **SaveImageAsSticker(Texture2D texture, string stickerName, int quality)** và **SaveImageAsTray(Texture2D texture, string stickerName, int quality)** để lưu tray icon và stickers vào một bộ nhớ tạm, tương lai sẽ cầm chính cái ảnh này để add vào stickers pack. stickerName ở đây sẽ bao gồm cả đuôi .webp còn nếu là tray thì sẽ bao gồm .png
 
 ```java
 public class MainDemoController : MonoBehaviour
@@ -119,27 +118,27 @@ public class MainDemoController : MonoBehaviour
     }
 ```
 
-* Above is code for save temp stickers before adding to whatsapp. SaveImageAsSticker has a paramater quality which helps you adjust size of image (should be use at 90 if you think your image will work)
+* SaveImageAsSticker có một tham số quality từ 0-100, nó sẽ giúp điều chỉnh size của image (giống như ở trên nói kích cỡ tối đa của tray image là 50kb, sticker là 100). Biến này sẽ giúp điều chỉnh chất lượng hình ảnh sao cho phù hợp. Còn sao để phù hợp thì phải tự căn. Nếu nó báo lỗi không add được sticker pack thì cũng có thể là do ảnh đã bị vượt quá kích cỡ tối đa
 
-* Sticker pack need at least three stickers for available. But here you can use a trick. Add your sticker and two path of sticker which are not exists. So you have a sticker pack with only one sticker
+* Sticker pack cần ít nhất 3 stickers để add. Nhưng ở đây có một trick. Thêm sticker và 2 cái tên không tồn tại vào, Vậy là sẽ tạo được một sticker pack với một sticker
 
 * Example:
 
 ```java
 stickerPaths = new string[] { stickerFileName, "lasdjflasdjflajsdf.png", "rqweoruqwer.png" };
 
-//Two file name above still need end with .png
+//Two file name above still need end with .png or .webp
 ```
 
-* You need add all sticker and information of sticker pack after you create them by function **SetStickerInformation(string identifier, string stickerPackName, string publisher, string imageDataVersion, string trayIconPath, params string[] stickersPath)**:
+* Sau khi save xong thì sử dụng hàm này để khai báo sticker pack **SetStickerInformation(string identifier, string stickerPackName, string publisher, string imageDataVersion, string trayIconPath, params string[] stickersPath)**:
 
 ```java
   public void SetStickerInformation(string identifier, string stickerPackName, string publisher, string imageDataVersion, string trayIconPath, params string[] stickersPath)
-  //image data version means nothing in my code, so set it "1" or what you want
+  //image data version không có nghĩa lý gì cả, đặt là "1" cũng được, đáng lẽ là để update sticker pack, nhưng chưa code
 ```
 
 ### Ready for adding stickers
-Now you are ready, call this function: ****
+Xong rồi đấy, gọi nốt hàm này thôi: ****
 ```java
 public bool ApplyStickerToWhatsapp(string identifier, string stickerPackName)
 
@@ -152,4 +151,5 @@ public void ClickSetSticker()
 }
 
 ```
+* Lưu ý: Không được sử dụng hàm SetStickerInformation và ApplyStickerToWhatsapp trong cùng một thời điểm, ít nhất giữa 2 hàm này phải gọi 2 thời điểm khác nhau hoặc delay mấy giây để nó khởi tạo cái stickerpack
 If it show you a dialog confirm, you are success. Good luck!
