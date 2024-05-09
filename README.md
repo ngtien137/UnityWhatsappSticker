@@ -1,4 +1,5 @@
 # UnityWhatsappSticker
+[Nếu bạn đọc được dòng này thì hãy bấm vào đây](tutorial_images/README.md)
 # Introduction
 
 Adding sticker to whatsapp from unity application
@@ -74,9 +75,9 @@ public class MainDemoController : MonoBehaviour
 
     public void ClickGenerateImage()
     {
-        string stickerFileName = "file_sticker.webp";
+        string stickerFileName = "file_sticker.webp"; // Sticker File name need be end with .webp
         GenerateStickerOrTray("sticker", stickerFileName, 0);
-        GenerateStickerOrTray("sticker_tray", trayFile, 1);
+        GenerateStickerOrTray("sticker_tray", trayFile, 1); //TrayFileName need be end with.png
         stickerPaths = new string[] { stickerFileName, stickerFileName, stickerFileName };
         wAStickerModule.SetStickerInformation(stickerIdentifier, stickerPackName, "TienUU", "1", trayIconPath: trayFile, stickerPaths);
         wAStickerModule.ToastMessage("Generated");
@@ -120,7 +121,8 @@ public class MainDemoController : MonoBehaviour
 ```
 
 * Above is code for save temp stickers before adding to whatsapp. SaveImageAsSticker has a paramater quality which helps you adjust size of image (should be use at 90 if you think your image will work)
-
+* Sticker File name need be end with .webp
+* TrayFileName need be end with.png
 * Sticker pack need at least three stickers for available. But here you can use a trick. Add your sticker and two path of sticker which are not exists. So you have a sticker pack with only one sticker
 
 * Example:
@@ -128,7 +130,7 @@ public class MainDemoController : MonoBehaviour
 ```java
 stickerPaths = new string[] { stickerFileName, "lasdjflasdjflajsdf.png", "rqweoruqwer.png" };
 
-//Two file name above still need end with .png
+//Two file name above still need end with .png or .webp
 ```
 
 * You need add all sticker and information of sticker pack after you create them by function **SetStickerInformation(string identifier, string stickerPackName, string publisher, string imageDataVersion, string trayIconPath, params string[] stickersPath)**:
@@ -152,4 +154,6 @@ public void ClickSetSticker()
 }
 
 ```
+** Don't use ApplyStickerToWhatsapp and SetStickerInformation at same time. If you want to do that, you need delay some seconds between them
+
 If it show you a dialog confirm, you are success. Good luck!
